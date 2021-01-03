@@ -1,136 +1,139 @@
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one or more
-    contributor license agreements.  See the NOTICE file distributed with
-    this work for additional information regarding copyright ownership.
-    The ASF licenses this file to You under the Apache License, Version 2.0
-    the "License"); you may not use this file except in compliance with
-    the License.  You may obtain a copy of the License at
+CodeMR Report for Apache Lucene and Solr
+=================
+You can clone the project and use extracted module and graphs with [CodeMR Eclipse](https://marketplace.eclipse.org/content/codemr-software-quality-tool) or [IntelliJ Plugin](https://plugins.jetbrains.com/plugin/10811-codemr). 
 
-        http://www.apache.org/licenses/LICENSE-2.0
+[Report in HTML Format](https://www.codemr.co.uk/case-reports/apache-lucene-solr/html_report_luceneanalysiscommon/htmlx/lbd/dashboard.html)
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
- -->
+CodeMR model path: ./codemr/apache-lucene-solr/apache-lucene-solr.mdl
 
-# Apache Lucene and Solr
+See CodeMR [web site](https://www.codemr.co.uk) for details about the CodeMR Quality Tool.
 
-Apache Lucene is a high-performance, full featured text search engine library
-written in Java.
+# General Visualization Styles in Metric Charts ###
+In metric charts, software entities like package, class, method are represented in a hierarchical way which reflects their actual encapsulation scheme in code.
 
-Apache Solr is an enterprise search platform written in Java and using Apache Lucene.
-Major features include full-text search, index replication and sharding, and
-result faceting and highlighting.
+Metric charts can also be constructed for different working sets. Working sets represent a more flexible, logical way of grouping software entities. Working sets can be generated automatically by the tool (according to module structure of the project) or they can be defined by the user. Metric charts. The user interface allows you to see metric charts for different working sets.
+
+Color of chart shapes represents metric of corresponding software entity. We categorize each metric into five levels: low, low-medium, medium-high, high, very-high. Because red color is associated with danger in most cultures, red color indicates a high value of selected metric. The heat-map color representation indicates the metric value of entity changes the color scale to a green-to-red spectrum.
+
+(low → high)  ![metric-legend](codemr/apache-lucene-solr/snapshots/metric-legend.png)
+
+Size of chart shapes proportional to Line of Code metrics of corresponding software entity.
+
+General Visualization Styles in Software Dependency Graphs
+In graphs, nodes represents software entities (class, methods) and edges represents the dependencies between the entities.
+
+ ![node-colors](codemr/apache-lucene-solr/snapshots/node-colors.png)
+Node color represents the complexity
+
+ ![node-shape](codemr/apache-lucene-solr/snapshots/node-shape.png)
+Node shape represents the coupling:
+
+ ![node-size](codemr/apache-lucene-solr/snapshots/node-size.png)
+Node size represents the actual code size
+
+Assessment of high-level quality attributes can be customized with user interface. Also, color and thickness of edges can be customized according to relation types.  You can select how relations in the source code will be reflected in the graph. You can filter only some relations, also assign different weights and colours to the edges representing those relations. In case there are more than one relation between two classes, all types of relations can be seen from the edge label or the tool tip of the edge. However, for the sake of simplicity, the color of edge is determined by relation type with the highest priority.
+
+![relations](codemr/apache-lucene-solr/snapshots/dependency-relation-rendering.png)
+#  Supported Metrics
+
+##  Project Metrics
+- Project Total Lines of Code
+- Number of Packages
+- Number of External Packages
+- Number of External Entities
+- Number of Problematic Classes
+- Number of Highly Problematic Classes
+## Package Metrics
+- Package Total Lines of Code
+- Efferent Coupling
+- Afferent Coupling
+- Number of Interfaces
+- Number of Classes
+- Number of Entities
+- Abstractness
+- Instability
+- Normalized Distance
+## Class Metrics
+- Lines of Code
+- Weighted Method Count
+- Depth of Inheritance Tree
+- Number of Children
+- Coupling Between Object Classes (CBO)
+- Response For a Class (RFC)
+- Lack of Cohesion of Methods (LCOM)
+- Cohesion Among Methods(CAM)
+- Number of Fields
+- Number of Methods
+- Number of Static Fields
+- Number of Static Methods
+- Number of Overridden Methods
+- Specialization Index
+- Access to Foreign Data
+- Lack of Tight Class Cohesion
+## Method Metrics
+- McCabe Cyclomatic Complexity
+- Nested Block Depth
+- Method Lines of Code
+- Number of Parameters
+- Number of Methods Called
+- Number of Accessed Fields
+
+# Software Quality Attributes
+Software external quality displays the visible symptoms when there are issues, but the roots are invisible internal quality attributes: program structure, complexity, coupling, testability, reusability, readability, maintainability. Coupling, Complexity, Cohesion and Size are the fundamental internal quality attributes of a software.
+
+## Complexity
+The degree of difficulty in understanding the internal  and external structure of classes and their relationships.. Higher levels of complexity in software increase the risk of unintentionally interfering with interactions and so increases the chance of introducing defects when making changes. When we try to understand the design We should not feel like we are solving puzzle. Code with high complexity is  harder to test, reuse and maintain.
+
+## Coupling
+Degree of inter-dependency between software entities
+
+Class A depends on Class B if:
+- A has an attribute that refers to (is of type) B.
+- A calls on services of an object B.
+- A has a method that references B (via return type or parameter).
+- A has a local variable which type is class B.
+- A is a subclass of (or implements) class B.
+
+Tightly coupled systems tend to exhibit the following characteristics:
+- A change in a class usually forces a ripple effect of changes in other classes.
+- Require more effort and/or time due to the increased dependency.
+- Might be harder to reuse a class because dependent classes must be included.
+As a result it reduces maintainability, understandability and reusability
+
+## Cohesion
+The degree to which the elements of a module belong together. How they are related to each other.  A class should have one, and only one, reason to change. It is a measurement of how well the methods of a class are related to each other. if software modules are cohesive then it is easy to locate where to change for a given feature. High cohesion (low lack of cohesion) tend to be preferable, because high cohesion is associated with several desirable traits of software including robustness, reliability, reusability, and understandability. In contrast, low cohesion is associated with undesirable traits such as being difficult to maintain, test, reuse, or even understand.
+
+## Size
+Size is one of the oldest and most common forms of software measurement. Size is the quantity of some attributes like line of code, number of classes, methods etc. It is generally measured by the number of lines or methods in the code. A very high count might indicate that a class or method is trying to do too much work and should be split up. It might also indicate that the class might be hard to maintain.
+
+High-level quality attributes are calculated from low level code metrics. Assessment of high-level quality attributes can be customized with  CodeMR user interface. 
+
+For more information, please visit https://www.codemr.co.uk
 
 
-[![Build Status](https://ci-builds.apache.org/job/Lucene/job/Lucene-Artifacts-master/badge/icon?subject=Lucene)](https://ci-builds.apache.org/job/Lucene/job/Lucene-Artifacts-master/) [![Build Status](https://ci-builds.apache.org/job/Lucene/job/Solr-Artifacts-master/badge/icon?subject=Solr)](https://ci-builds.apache.org/job/Lucene/job/Solr-Artifacts-master/)
+# Snapshots #
+
+#### Overview #### 
+![Overview](codemr/apache-lucene-solr/snapshots/lucene-Overview.png)
+#### Lucene Core Module Treemap View ####
+![Treemap](codemr/apache-lucene-solr/snapshots/lucene-Treemap.png)
+#### Lucene Analysis Kuromoji Module Sunburst View ####
+![Sunburst](codemr/apache-lucene-solr/snapshots/lucene-Sunburst.png)
+#### Lucene Analysis Common Module Inheritance Dependency Graph ####
+![graph](codemr/apache-lucene-solr/snapshots/lucene-analysis-common-inheritance.png)
+#### Lucene Analysis Norj Module Dependency Graph Grouped by Package  ####
+![graph](codemr/apache-lucene-solr/snapshots/lucene-analysis-nori-by-package.png)
+#### Lucene Analysis Common Module Package Dependency Graph ####
+![graph](codemr/apache-lucene-solr/snapshots/lucene-analysis-common-package-deps.png)
+#### Lucene Core Module Package Dependency Chart ####
+![graph](codemr/apache-lucene-solr/snapshots/lucene-PackageDependency.png)
+#### Lucene Core Module Package Structure View ####
+![graph](codemr/apache-lucene-solr/snapshots/lucene-PackageStructure.png)
+#### Lucene Query Parser Module Dependency Graph Grouped by Modularity ####
+![graph](codemr/apache-lucene-solr/snapshots/lucene-queryparser-by-modularity.png)
+#### Solr Core Module Inheritance Dependency Graph ####
+![graph](codemr/apache-lucene-solr/snapshots/lucene-solr-inheritance.png)
+#### Lucene Suggest Module Dependency Graph Grouped by Package  ####
+![graph](codemr/apache-lucene-solr/snapshots/lucene-suggest-by-package.png)
 
 
-## Online Documentation
-
-This README file only contains basic setup instructions.  For more
-comprehensive documentation, visit:
-
-- Lucene: <http://lucene.apache.org/core/documentation.html>
-- Solr: <http://lucene.apache.org/solr/guide/>
-
-## Building with Gradle
-
-### Building Lucene
-
-See [lucene/BUILD.md](./lucene/BUILD.md).
-
-### Building Solr
-
-Firstly, you need to set up your development environment (OpenJDK 11 or greater).
-
-We'll assume that you know how to get and set up the JDK - if you
-don't, then we suggest starting at https://www.oracle.com/java/ and learning
-more about Java, before returning to this README. Solr runs with
-Java 11 and later.
-
-As of 9.0, Lucene/Solr uses [Gradle](https://gradle.org/) as the build
-system. Ant build support has been removed.
-
-To build Lucene and Solr, run (`./` can be omitted on Windows):
-
-`./gradlew assemble`
-
-NOTE: DO NOT use `gradle` command that is already installed on your machine (unless you know what you'll do).
-The "gradle wrapper" (gradlew) does the job - downloads the correct version of it, setups necessary configurations.
-
-The first time you run Gradle, it will create a file "gradle.properties" that
-contains machine-specific settings. Normally you can use this file as-is, but it
-can be modified if necessary.
-
-The command above packages a full distribution of Solr server; the 
-package can be located at:
-
-`solr/packaging/build/solr-*`
-
-Note that the gradle build does not create or copy binaries throughout the
-source repository so you need to switch to the packaging output folder above;
-the rest of the instructions below remain identical. The packaging directory 
-is rewritten on each build. 
-
-For development, especially when you have created test indexes etc, use
-the `./gradlew dev` task which will copy binaries to `./solr/packaging/build/dev`
-but _only_ overwrite the binaries which will preserve your test setup.
-
-If you want to build the documentation, type `./gradlew -p solr documentation`.
-
-## Running Solr
-
-After [building Solr](#building-lucene-solr), the server can be started using
-the `bin/solr` control scripts.  Solr can be run in either standalone or
-distributed (SolrCloud mode).
-
-To run Solr in standalone mode, run the following command from the `solr/`
-directory:
-
-`bin/solr start`
-
-To run Solr in SolrCloud mode, run the following command from the `solr/`
-directory:
-
-`bin/solr start -c`
-
-The `bin/solr` control script allows heavy modification of the started Solr.
-Common options are described in some detail in solr/README.txt.  For an
-exhaustive treatment of options, run `bin/solr start -h` from the `solr/`
-directory.
-
-### Gradle build and IDE support
-
-- *IntelliJ* - IntelliJ idea can import the project out of the box. 
-               Code formatting conventions should be manually adjusted. 
-- *Eclipse*  - Not tested.
-- *Netbeans* - Not tested.
-
-
-### Gradle build and tests
-
-`./gradlew assemble` will build a runnable Solr as noted above.
-
-`./gradlew check` will assemble Lucene/Solr and run all validation
-  tasks unit tests.
-
-`./gradlew help` will print a list of help commands for high-level tasks. One
-  of these is `helpAnt` that shows the gradle tasks corresponding to ant
-  targets you may be familiar with.
-
-## Contributing
-
-Please review the [Contributing to Solr
-Guide](https://cwiki.apache.org/confluence/display/solr/HowToContribute) for information on
-contributing.
-
-## Discussion and Support
-
-- [Users Mailing List](http://lucene.apache.org/solr/community.html#solr-user-list-solr-userluceneapacheorg)
-- [Developers Mailing List](http://lucene.apache.org/solr/community.html#developer-list-devluceneapacheorg)
-- [Lucene Issue Tracker](https://issues.apache.org/jira/browse/LUCENE)
-- [Solr Issue Tracker](https://issues.apache.org/jira/browse/SOLR)
-- IRC: `#solr` and `#solr-dev` on freenode.net
